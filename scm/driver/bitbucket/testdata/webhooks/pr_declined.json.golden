@@ -31,6 +31,14 @@
             "Email": "",
             "Avatar": "https://bitbucket.org/account/brydzewski/avatar/32/"
         },
+        "Base": {
+            "Name": "master",
+            "Sha": "4f8f6de9d0ff"
+        },
+        "Head": {
+            "Name": "develop",
+            "Sha": "6ca9fe26898a"
+        },
         "Created": "2018-07-03T01:39:22.782818Z",
         "Updated": "2018-07-03T01:44:00.030575Z"
     },

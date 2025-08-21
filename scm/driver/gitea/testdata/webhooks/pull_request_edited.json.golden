@@ -35,6 +35,14 @@
       "Email": "jane@example.com",
       "Avatar": "https://secure.gravatar.com/avatar/66f07ff48e6a9cb393de7a34e03bb52a?d=identicon"
     },
+    "Base": {
+        "Name": "master",
+        "Sha": "39af58f1eff02aa308e16913e887c8d50362b474"
+    },
+    "Head": {
+        "Name": "feature",
+        "Sha": "2eba238e33607c1fa49253182e9fff42baafa1eb"
+    },
     "Created": "0001-01-01T00:00:00Z",
     "Updated": "0001-01-01T00:00:00Z"
   },

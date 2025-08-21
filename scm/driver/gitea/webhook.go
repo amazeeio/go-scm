@@ -290,6 +290,14 @@ func convertPullRequestHook(dst *pullRequestHook) *scm.PullRequestHook {
 				Email:  dst.PullRequest.User.Email,
 				Avatar: dst.PullRequest.User.Avatar,
 			},
+			Base: scm.Reference{
+				Name: dst.PullRequest.Base.Name,
+				Sha:  dst.PullRequest.Base.Sha,
+			},
+			Head: scm.Reference{
+				Name: dst.PullRequest.Head.Name,
+				Sha:  dst.PullRequest.Head.Sha,
+			},
 			Merged: dst.PullRequest.Merged,
 			// Created: nil,
 			// Updated: nil,
