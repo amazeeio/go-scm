@@ -109,7 +109,7 @@ func (s *webhookService) parsePullRequest(data []byte) (scm.Webhook, error) {
 		// including edits to the title or description. Thus, return the hook
 		// action only when the target reference has changed (name or hash).
 		if src.PullRequest.ToRef.DisplayID == src.PreviousTarget.DisplayID &&
-		src.PullRequest.ToRef.LatestCommit == src.PreviousTarget.LatestCommit {
+			src.PullRequest.ToRef.LatestCommit == src.PreviousTarget.LatestCommit {
 			dst.Action = scm.ActionUpdate
 		} else {
 			dst.Action = scm.ActionSync
@@ -136,6 +136,7 @@ type pushHook struct {
 	Actor      *user       `json:"actor"`
 	Repository *repository `json:"repository"`
 	Changes    []*change   `json:"changes"`
+	ToCommit   toCommit    `json:"toCommit"`
 }
 
 type pullRequestHook struct {
@@ -167,6 +168,23 @@ type change struct {
 	Type     string `json:"type"`
 }
 
+type toCommit struct {
+	ID        string `json:"id"`
+	DisplayID string `json:"displayId"`
+	Author    struct {
+		Name         string `json:"name"`
+		EmailAddress string `json:"emailAddress"`
+	} `json:"author"`
+	AuthorTimestamp int64 `json:"authorTimestamp"`
+	Committer       struct {
+		Name         string `json:"name"`
+		EmailAddress string `json:"emailAddress"`
+	} `json:"committer"`
+	CommitterTimestamp int64         `json:"committerTimestamp"`
+	Message            string        `json:"message"`
+	Parents            []interface{} `json:"parents"`
+}
+
 //
 // push hooks
 //
@@ -188,12 +206,12 @@ func convertPushHook(src *pushHook) *scm.PushHook {
 			})
 	}
 	return &scm.PushHook{
-		Ref: change.RefID,
-		After: change.ToHash,
+		Ref:    change.RefID,
+		After:  change.ToHash,
 		Before: change.FromHash,
 		Commit: scm.Commit{
 			Sha:       change.ToHash,
-			Message:   "",
+			Message:   src.ToCommit.Message,
 			Link:      "",
 			Author:    signer,
 			Committer: signer,
